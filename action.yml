@@ -1,11 +1,11 @@
 name: 'IBM Cloud CLI'
-description: 'Deploy and configure IBM Cloud CLI to talk to the IBM Cloud'
+description: 'Install and configure IBM Cloud CLI to talk to IBM Cloud'
 inputs:
   APIKEY: # APIKEY
-    description: 'Your API Key to access the IBM Cloud'
+    description: 'Your API key to access IBM Cloud'
     required: true
-  CLOUD_REGION: # APIKEY
-    description: 'The region to access the  IBM Cloud'
+  CLOUD_REGION: # REGION
+    description: 'The region to access IBM Cloud'
     required: true
     default: 'us-south'
 

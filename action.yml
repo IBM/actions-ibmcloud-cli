@@ -1,0 +1,17 @@
+name: 'IBM Cloud CLI'
+description: 'Deploy and configure IBM Cloud CLI to talk to the IBM Cloud'
+inputs:
+  APIKEY: # APIKEY
+    description: 'Your API Key to access the IBM Cloud'
+    required: true
+  CLOUD_REGION: # APIKEY
+    description: 'The region to access the  IBM Cloud'
+    required: true
+    default: 'us-south'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.APIKEY }}
+    - ${{ inputs.CLOUD_REGION }}

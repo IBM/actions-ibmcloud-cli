@@ -6,7 +6,7 @@ inputs:
     required: true
   CLOUD_REGION: # REGION
     description: 'The region to access IBM Cloud'
-    required: true
+    required: false
     default: 'us-south'
 
 runs:
@@ -15,3 +15,7 @@ runs:
   args:
     - ${{ inputs.APIKEY }}
     - ${{ inputs.CLOUD_REGION }}
+
+branding:
+  icon: 'upload-cloud'  
+  color: 'blue'

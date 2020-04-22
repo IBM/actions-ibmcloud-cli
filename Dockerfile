@@ -5,4 +5,4 @@ RUN apt-get remove -y docker docker-engine docker.io
 RUN apt-get install -y curl docker.io
 
 COPY entrypoint.sh /entrypoint.sh
-CMD ["/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]

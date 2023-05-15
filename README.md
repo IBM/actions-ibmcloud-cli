@@ -18,7 +18,7 @@ This action installs the IBM Cloud CLI and authenticates with IBM Cloud so you c
 
 ```yaml
 - name: Instal IBM Cloud CLI
-  uses: actions/ibmcloud-action@v1
+  uses: IBM/actions-ibmcloud-cli@0.0.8
   with:
     APIKEY: ${{ secrets.IBM_CLOUD_API_KEY }}
     CLOUD_REGION: us-south

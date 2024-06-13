@@ -1,4 +1,5 @@
 const core = require('@actions/core')
+const exec = require('@actions/exec')
 
 /**
  * The main function for the action.
@@ -6,9 +7,7 @@ const core = require('@actions/core')
  */
 async function run() {
   try {
-    // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
-    // Log the current timestamp, wait, then log the new timestamp
-    core.debug(new Date().toTimeString())
+    await exec.exec(`/bin/bash -c "curl -fsSL https://clis.cloud.ibm.com/install/linux | sh"`)
 
     // Set outputs for other workflow steps to use
     core.setOutput('version', "v0.0.1")

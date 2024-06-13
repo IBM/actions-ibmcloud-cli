@@ -15,14 +15,15 @@ jobs:
     - run: ibmcloud --version
 
   check-dist:
-    name: Check dist directory is up to date
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: "20"
+        node-version: 20
         cache: npm
+    - run: npm ci
     - run: npm run package
-    - run: git diff --exit-code
+    - name: Check dist directory is up to date
+      run: git diff --exit-code

@@ -5,13 +5,11 @@ branding:
   icon: 'upload-cloud'
   color: 'blue'
 inputs:
-  IBMCLOUD_API_KEY:
-    description: 'Your API key to access IBM Cloud'
-    required: false
-  IBMCLOUD_REGION:
-    description: 'The region to access IBM Cloud'
-    required: false
-    default: 'us-south'
+  plugins:
+    description: |
+      A comma, space, or newline separated list of CLI plugins to be installed.
+      The plugins can listed as PLUGIN_NAME (e.g. container-service) or PLUGIN_NAME@VERSION (e.g. container-service@0.4.102)
+      For more information about plugins see https://cloud.ibm.com/docs/cli?topic=cli-plug-ins
 outputs:
   version:
     description: 'The version of the IBM Cloud CLI that was installed'

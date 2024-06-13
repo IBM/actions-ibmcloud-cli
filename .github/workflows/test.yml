@@ -1,4 +1,4 @@
-name: Test this action
+name: Test
 on:
   pull_request:
   push:
@@ -11,15 +11,126 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Set up ibmcloud CLI
-      id: ibmcloud
       uses: ./
     - name: Check basic CLI function
       run: ibmcloud --version
+
+  test-version-output:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up ibmcloud CLI
+      id: ibmcloud
+      uses: ./
     - name: Check version output is set correctly
       run: |
         actual_version="$(ibmcloud --version)"
         expected_version="ibmcloud version ${{ steps.ibmcloud.outputs.version }}+"
         [[ "$actual_version" == "$expected_version"* ]]
+
+  test-single-plugin:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up ibmcloud CLI
+      uses: ./
+      with:
+        plugins: container-service
+    - name: Check plugin is installed
+      run: ibmcloud plugin list | grep -q container-service
+
+  test-single-plugin-with-version:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up ibmcloud CLI
+      uses: ./
+      with:
+        plugins: container-service@0.4.102
+    - name: Check plugin is installed
+      run: ibmcloud plugin list | grep -q 'container-service.\+0\.4\.102\b'
+
+  test-multiple-plugins-with-commas:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up ibmcloud CLI
+      uses: ./
+      with:
+        plugins: container-service,secrets-manager
+    - name: Check plugins are installed
+      run: |
+        ibmcloud plugin list | grep -q container-service &&
+        ibmcloud plugin list | grep -q secrets-manager
+
+  test-multiple-plugins-with-comma-space:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up ibmcloud CLI
+      uses: ./
+      with:
+        plugins: container-service, secrets-manager
+    - name: Check plugins are installed
+      run: |
+        ibmcloud plugin list | grep -q container-service &&
+        ibmcloud plugin list | grep -q secrets-manager
+
+  test-multiple-plugins-with-newlines:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up ibmcloud CLI
+      uses: ./
+      with:
+        plugins: |
+          container-service
+          secrets-manager
+    - name: Check plugins are installed
+      run: |
+        ibmcloud plugin list | grep -q container-service &&
+        ibmcloud plugin list | grep -q secrets-manager
+
+  test-multiple-plugins-with-spaces:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up ibmcloud CLI
+      uses: ./
+      with:
+        plugins: container-service  secrets-manager
+    - name: Check plugins are installed
+      run: |
+        ibmcloud plugin list | grep -q container-service &&
+        ibmcloud plugin list | grep -q secrets-manager
+
+  test-multiple-plugins-with-versions:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up ibmcloud CLI
+      uses: ./
+      with:
+        plugins: container-service@0.4.102, secrets-manager
+    - name: Check plugins are installed
+      run: |
+        ibmcloud plugin list | grep -q 'container-service.\+0\.4\.102\b' &&
+        ibmcloud plugin list | grep -q secrets-manager
+
+  test-multiple-plugins-with-versions-and-newlines:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up ibmcloud CLI
+      uses: ./
+      with:
+        plugins: |
+          container-service@0.4.102
+          secrets-manager
+    - name: Check plugins are installed
+      run: |
+        ibmcloud plugin list | grep -q 'container-service.\+0\.4\.102\b' &&
+        ibmcloud plugin list | grep -q secrets-manager
 
   check-dist:
     runs-on: ubuntu-latest

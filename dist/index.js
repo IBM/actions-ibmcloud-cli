@@ -26159,10 +26159,15 @@ const exec = __nccwpck_require__(1514)
  */
 async function run() {
   try {
-    await exec.exec(`/bin/bash -c "curl -fsSL https://clis.cloud.ibm.com/install/linux | sh"`)
+    await exec.exec('/bin/bash -c "curl -fsSL https://clis.cloud.ibm.com/install/linux | sh"')
 
-    // Set outputs for other workflow steps to use
-    core.setOutput('version', "v0.0.1")
+    // Capture the version output
+    let version = ''
+    await exec.exec('ibmcloud', ['--version'], {
+      listeners: {stdout: (data) => { version += data.toString() }}
+    });
+    version = version.split('+')[0].split(' ')[2]
+    core.setOutput('version', version)
   } catch (error) {
     // Fail the workflow run if an error occurs
     core.setFailed(error.message)

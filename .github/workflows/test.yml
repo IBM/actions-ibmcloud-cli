@@ -11,8 +11,15 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Set up ibmcloud CLI
+      id: ibmcloud
       uses: ./
-    - run: ibmcloud --version
+    - name: Check basic CLI function
+      run: ibmcloud --version
+    - name: Check version output is set correctly
+      run: |
+        actual_version="$(ibmcloud --version)"
+        expected_version="ibmcloud version ${{ steps.ibmcloud.outputs.version }}+"
+        [[ "$actual_version" == "$expected_version"* ]]
 
   check-dist:
     runs-on: ubuntu-latest

@@ -26161,6 +26161,9 @@ async function run() {
   try {
     await exec.exec('/bin/bash -c "curl -fsSL https://clis.cloud.ibm.com/install/linux | sh"')
 
+    // Disable version checking
+    await exec.exec('ibmcloud', ['config', '--check-version=false'])
+
     // Capture the version output
     let version = ''
     await exec.exec('ibmcloud', ['--version'], {

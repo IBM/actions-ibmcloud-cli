@@ -1,21 +1,20 @@
 name: 'IBM Cloud CLI'
-description: 'Install and configure IBM Cloud CLI to talk to IBM Cloud'
+description:
+  'Install and configure the IBM Cloud CLI for working with IBM Cloud'
+branding:
+  icon: 'upload-cloud'
+  color: 'blue'
 inputs:
-  APIKEY: # APIKEY
+  IBMCLOUD_API_KEY:
     description: 'Your API key to access IBM Cloud'
-    required: true
-  CLOUD_REGION: # REGION
+    required: false
+  IBMCLOUD_REGION:
     description: 'The region to access IBM Cloud'
     required: false
     default: 'us-south'
-
+outputs:
+  version:
+    description: 'The version of the IBM Cloud CLI that was installed'
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  args:
-    - ${{ inputs.APIKEY }}
-    - ${{ inputs.CLOUD_REGION }}
-
-branding:
-  icon: 'upload-cloud'  
-  color: 'blue'
+  using: node20
+  main: dist/index.js

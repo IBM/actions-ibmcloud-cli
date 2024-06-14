@@ -1,9 +1,8 @@
-name: 'IBM Cloud CLI'
-description:
-  'Install and configure the IBM Cloud CLI for working with IBM Cloud'
+name: IBM Cloud CLI
+description: Install and configure the IBM Cloud CLI for working with IBM Cloud
 branding:
-  icon: 'upload-cloud'
-  color: 'blue'
+  icon: upload-cloud
+  color: blue
 inputs:
   plugins:
     description: |
@@ -12,7 +11,7 @@ inputs:
       For more information about plugins see https://cloud.ibm.com/docs/cli?topic=cli-plug-ins
 outputs:
   version:
-    description: 'The version of the IBM Cloud CLI that was installed'
+    description: The version of the IBM Cloud CLI that was installed
 runs:
   using: node20
   main: dist/index.js

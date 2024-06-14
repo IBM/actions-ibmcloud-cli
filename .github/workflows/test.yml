@@ -132,6 +132,49 @@ jobs:
         ibmcloud plugin list | grep -q 'container-service.\+0\.4\.102\b' &&
         ibmcloud plugin list | grep -q secrets-manager
 
+  test-login:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up ibmcloud CLI
+      uses: ./
+      with:
+        api_key: ${{ secrets.IBMCLOUD_API_KEY }}
+    - name: Check logged in
+      run: |
+        ibmcloud target | grep -q 'User:\s\+${{ secrets.IBMCLOUD_USER }}' &&
+        ibmcloud target | grep -q '^Region:\s\+us-south$' &&
+        ibmcloud target | grep -q '^Resource group:\s\+default$'
+
+  test-login-with-region-and-group:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up ibmcloud CLI
+      uses: ./
+      with:
+        api_key: ${{ secrets.IBMCLOUD_API_KEY }}
+        region: us-east
+        group: manageiq
+    - name: Check logged in
+      run: |
+        ibmcloud target | grep -q '^User:\s\+${{ secrets.IBMCLOUD_USER }}$' &&
+        ibmcloud target | grep -q '^Region:\s\+us-east$' &&
+        ibmcloud target | grep -q '^Resource group:\s\+manageiq$'
+
+  test-login-failure:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up ibmcloud CLI
+      id: ibmcloud
+      uses: ./
+      with:
+        api_key: invalid-xxx
+      continue-on-error: true
+    - name: Check failed login
+      run: '[[ ${{ steps.ibmcloud.outcome }} == failure ]]'
+
   check-dist:
     runs-on: ubuntu-latest
     steps:

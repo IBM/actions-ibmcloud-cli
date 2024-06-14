@@ -9,6 +9,17 @@ inputs:
       A comma, space, or newline separated list of CLI plugins to be installed.
       The plugins can listed as PLUGIN_NAME (e.g. container-service) or PLUGIN_NAME@VERSION (e.g. container-service@0.4.102)
       For more information about plugins see https://cloud.ibm.com/docs/cli?topic=cli-plug-ins
+  api:
+    description: API endpoint to IBM Cloud
+    default: https://cloud.ibm.com
+  api_key:
+    description: API Key to login to IBM Cloud
+  region:
+    description: Region to access on IBM Cloud
+    default: us-south
+  group:
+    description: Resource group to access on IBM Cloud
+    default: default
 outputs:
   version:
     description: The version of the IBM Cloud CLI that was installed

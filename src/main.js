@@ -2,6 +2,17 @@ const core = require('@actions/core')
 const exec = require('@actions/exec')
 
 /**
+ * Colorize a string with ANSI codes.
+ * @param {string} string - The string to colorize
+ * @param {string} color - The color
+ * @returns {string} The colorized string
+ */
+function colorize(string, color) {
+  code = {red: 31, green: 32, cyan: 36}[color] || 0
+  return `\u001b[${code};1m${string}\u001b[0m`
+}
+
+/**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
  */
@@ -25,6 +36,37 @@ async function run() {
     if (plugins.length > 0) {
       await exec.exec('ibmcloud', ['plugin', 'install', ...plugins])
       await exec.exec('ibmcloud', ['plugin', 'list'])
+    }
+
+    // Set API endpoint
+    const api = core.getInput('api')
+    await exec.exec('ibmcloud', ['api', api])
+
+    // Login
+    const apiKey = core.getInput('api_key')
+    const region = core.getInput('region')
+    const group  = core.getInput('group')
+    if (apiKey.length > 0) {
+      // Mimic the ibmcloud login output since we will run it silent later
+      core.info(`[command]/usr/local/bin/ibmcloud login -r ${region} -g ${group}`)
+      core.info(`API endpoint: ${colorize(api, 'cyan')}`)
+      core.info('Logging in with API key from environment variable...')
+      core.info('Authenticating...')
+
+      try {
+        await exec.exec('ibmcloud', ['login', '-r', region, '-g', group], {
+          env: {
+            'IBMCLOUD_API_KEY': apiKey,
+            ...process.env
+          },
+          silent: true // Intentionally suppress the output to avoid the ibmcloud target at the end of login
+        })
+        core.info(colorize('OK', 'green'))
+      } catch(e) {
+        core.info(colorize('FAILED', 'red'))
+        core.info('Unable to authenticate')
+        throw e
+      }
     }
   } catch (error) {
     // Fail the workflow run if an error occurs

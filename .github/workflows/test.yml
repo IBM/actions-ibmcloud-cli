@@ -191,6 +191,28 @@ jobs:
         ibmcloud target | grep -q '^Region:\s\+us-south$' &&
         ibmcloud target | grep -q '^Resource group:\s\+default$'
 
+  test-multiple-platforms:
+    strategy:
+      matrix:
+        os:
+        - ubuntu-latest
+        - windows-latest
+        - macos-latest
+      fail-fast: false
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up ibmcloud CLI
+        uses: ./
+        with:
+          api_key: ${{ secrets.IBMCLOUD_API_KEY }}
+          plugins: container-service
+      - name: Check logged in
+        run: |
+          ibmcloud target | grep -q 'User:\s\+${{ secrets.IBMCLOUD_USER }}' &&
+          ibmcloud target | grep -q '^Region:\s\+us-south$' &&
+          ibmcloud target | grep -q '^Resource group:\s\+default$'
+
   check-dist:
     runs-on: ubuntu-latest
     steps:

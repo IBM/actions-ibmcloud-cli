@@ -19,7 +19,17 @@ function colorize(string, color) {
 async function run() {
   try {
     core.startGroup('Installing IBM Cloud CLI')
-    await exec.exec('/bin/bash -c "curl -fsSL https://clis.cloud.ibm.com/install/linux | sh"')
+    if (process.platform == 'win32') {
+      await exec.exec(`powershell -command "iex (New-Object Net.WebClient).DownloadString('https://clis.cloud.ibm.com/install/powershell')"`)
+      // Add to PATH for the current step
+      process.env.PATH += ';C:\\Program Files\\IBM\\Cloud\\bin'
+      // Add to GITHUB_PATH for future steps
+      await exec.exec(`powershell -command "Add-Content $env:GITHUB_PATH 'C:\\Program Files\\IBM\\Cloud\\bin'"`)
+    } else if (process.platform == 'darwin') {
+      await exec.exec('/bin/bash -c "curl -fsSL https://clis.cloud.ibm.com/install/osx | sh"')
+    } else {
+      await exec.exec('/bin/bash -c "curl -fsSL https://clis.cloud.ibm.com/install/linux | sh"')
+    }
     core.endGroup()
 
     core.startGroup('Disable version checking')

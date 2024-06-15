@@ -175,6 +175,22 @@ jobs:
     - name: Check failed login
       run: '[[ ${{ steps.ibmcloud.outcome }} == failure ]]'
 
+  test-login-manual:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up ibmcloud CLI
+      uses: ./
+    - name: Manually log in
+      env:
+        IBMCLOUD_API_KEY: ${{ secrets.IBMCLOUD_API_KEY }}
+      run: ibmcloud login -r us-south -g default >/dev/null
+    - name: Check logged in
+      run: |
+        ibmcloud target | grep -q 'User:\s\+${{ secrets.IBMCLOUD_USER }}' &&
+        ibmcloud target | grep -q '^Region:\s\+us-south$' &&
+        ibmcloud target | grep -q '^Resource group:\s\+default$'
+
   check-dist:
     runs-on: ubuntu-latest
     steps:

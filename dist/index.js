@@ -26190,8 +26190,8 @@ async function run() {
     if (plugins.length > 0) {
       core.startGroup('Installing IBM Cloud CLI plugins')
       await exec.exec('ibmcloud', ['plugin', 'install', ...plugins])
-      await exec.exec('ibmcloud', ['plugin', 'list'])
       core.endGroup()
+      await exec.exec('ibmcloud', ['plugin', 'list'])
     }
 
     core.startGroup('Set API endpoint')

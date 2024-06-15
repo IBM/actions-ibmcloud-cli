@@ -18,10 +18,13 @@ function colorize(string, color) {
  */
 async function run() {
   try {
+    core.startGroup('Installing IBM Cloud CLI')
     await exec.exec('/bin/bash -c "curl -fsSL https://clis.cloud.ibm.com/install/linux | sh"')
+    core.endGroup()
 
-    // Disable version checking
+    core.startGroup('Disable version checking')
     await exec.exec('ibmcloud', ['config', '--check-version=false'])
+    core.endGroup()
 
     // Capture the version output
     let version = ''
@@ -31,22 +34,25 @@ async function run() {
     version = version.split('+')[0].split(' ')[2]
     core.setOutput('version', version)
 
-    // Install plugins
     const plugins = core.getInput('plugins').replace('\n', ' ').replace(',', ' ').split(' ').map(p => p.trim()).filter(p => p)
     if (plugins.length > 0) {
+      core.startGroup('Installing IBM Cloud CLI plugins')
       await exec.exec('ibmcloud', ['plugin', 'install', ...plugins])
       await exec.exec('ibmcloud', ['plugin', 'list'])
+      core.endGroup()
     }
 
-    // Set API endpoint
+    core.startGroup('Set API endpoint')
     const api = core.getInput('api')
     await exec.exec('ibmcloud', ['api', api])
+    core.endGroup()
 
-    // Login
     const apiKey = core.getInput('api_key')
     const region = core.getInput('region')
     const group  = core.getInput('group')
     if (apiKey.length > 0) {
+      core.startGroup('Login to IBM Cloud')
+
       // Mimic the ibmcloud login output since we will run it silent later
       core.info(`[command]/usr/local/bin/ibmcloud login -r ${region} -g ${group}`)
       core.info(`API endpoint: ${colorize(api, 'cyan')}`)
@@ -66,6 +72,8 @@ async function run() {
         core.info(colorize('FAILED', 'red'))
         core.info('Unable to authenticate')
         throw e
+      } finally {
+        core.endGroup()
       }
     }
   } catch (error) {

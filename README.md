@@ -2,6 +2,9 @@
 
 This action installs the IBM Cloud CLI and authenticates with IBM Cloud so you can run commands against it.
 
+[![GitHub Release](https://img.shields.io/github/v/release/IBM/actions-ibmcloud-cli)](https://github.com/IBM/actions-ibmcloud-cli/releases)
+[![Test](https://github.com/IBM/actions-ibmcloud-cli/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/IBM/actions-ibmcloud-cli/actions/workflows/test.yml?query=branch%3Amaster)
+
 ## Usage
 
 ### Example

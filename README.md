@@ -84,6 +84,10 @@ The action works on these [GitHub-hosted runners](https://docs.github.com/en/act
 | macOS   | `macos-14` (`macos-latest`), `macos-13`, `macos-12` |
 | Windows | `windows-2022` (`windows-latest`), `windows-2019` |
 
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md).
+
 ## License
 
 The gem is available as open source under the terms of the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).

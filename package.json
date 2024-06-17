@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Install and configure the IBM Cloud CLI for working with IBM Cloud",
   "author": "IBM Authors",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "homepage": "https://github.com/IBM/actions-ibmcloud-cli",
   "repository": {
     "type": "git",

@@ -26193,7 +26193,7 @@ async function run() {
     await exec.exec('ibmcloud', ['--version'], {
       listeners: {stdout: (data) => { version += data.toString() }}
     });
-    version = version.split('+')[0].split(' ')[2]
+    version = version.split('+')[0].split(' ').pop()
     core.setOutput('version', version)
 
     const plugins = core.getInput('plugins').replace('\n', ' ').replace(',', ' ').split(' ').map(p => p.trim()).filter(p => p)

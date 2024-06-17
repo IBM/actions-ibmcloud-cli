@@ -18,7 +18,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Set up ibmcloud CLI
-      uses: IBM/actions-ibmcloud-cli@v0.1.0
+      uses: IBM/actions-ibmcloud-cli@v1
       with:
         api_key: ${{ secrets.IBMCLOUD_API_KEY }}
         region: us-south
@@ -70,7 +70,7 @@ jobs:
     - uses: actions/checkout@v4
     - name: Set up ibmcloud CLI
       id: ibmcloud
-      uses: IBM/actions-ibmcloud-cli@v0.1.0
+      uses: IBM/actions-ibmcloud-cli@v1
     - run: ibmcloud --version
            # => ibmcloud version 2.25.1+10e6a2e-2024-05-24T20:17:29+00:00
     - run: echo The version installed is ${{ steps.ibmcloud.outputs.version }}

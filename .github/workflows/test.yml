@@ -1,0 +1,236 @@
+name: Test
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up ibmcloud CLI
+      uses: ./
+    - name: Check basic CLI function
+      run: ibmcloud --version
+
+  test-version-output:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up ibmcloud CLI
+      id: ibmcloud
+      uses: ./
+    - name: Check version output is set correctly
+      run: |
+        actual_version="$(ibmcloud --version)"
+        expected_version="ibmcloud version ${{ steps.ibmcloud.outputs.version }}+"
+        [[ "$actual_version" == "$expected_version"* ]]
+
+  test-single-plugin:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up ibmcloud CLI
+      uses: ./
+      with:
+        plugins: container-service
+    - name: Check plugin is installed
+      run: ibmcloud plugin list | grep -q '^container-service\b'
+
+  test-single-plugin-with-version:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up ibmcloud CLI
+      uses: ./
+      with:
+        plugins: container-service@0.4.102
+    - name: Check plugin is installed
+      run: ibmcloud plugin list | grep -q '^container-service.\+0\.4\.102\b'
+
+  test-multiple-plugins-with-commas:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up ibmcloud CLI
+      uses: ./
+      with:
+        plugins: container-service,secrets-manager
+    - name: Check plugins are installed
+      run: |
+        ibmcloud plugin list | grep -q '^container-service\b' &&
+        ibmcloud plugin list | grep -q '^secrets-manager\b'
+
+  test-multiple-plugins-with-comma-space:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up ibmcloud CLI
+      uses: ./
+      with:
+        plugins: container-service, secrets-manager
+    - name: Check plugins are installed
+      run: |
+        ibmcloud plugin list | grep -q '^container-service\b' &&
+        ibmcloud plugin list | grep -q '^secrets-manager\b'
+
+  test-multiple-plugins-with-newlines:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up ibmcloud CLI
+      uses: ./
+      with:
+        plugins: |
+          container-service
+          secrets-manager
+    - name: Check plugins are installed
+      run: |
+        ibmcloud plugin list | grep -q '^container-service\b' &&
+        ibmcloud plugin list | grep -q '^secrets-manager\b'
+
+  test-multiple-plugins-with-spaces:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up ibmcloud CLI
+      uses: ./
+      with:
+        plugins: container-service  secrets-manager
+    - name: Check plugins are installed
+      run: |
+        ibmcloud plugin list | grep -q '^container-service\b' &&
+        ibmcloud plugin list | grep -q '^secrets-manager\b'
+
+  test-multiple-plugins-with-versions:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up ibmcloud CLI
+      uses: ./
+      with:
+        plugins: container-service@0.4.102, secrets-manager
+    - name: Check plugins are installed
+      run: |
+        ibmcloud plugin list | grep -q '^container-service\b.\+0\.4\.102\b' &&
+        ibmcloud plugin list | grep -q '^secrets-manager\b'
+
+  test-multiple-plugins-with-versions-and-newlines:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up ibmcloud CLI
+      uses: ./
+      with:
+        plugins: |
+          container-service@0.4.102
+          secrets-manager
+    - name: Check plugins are installed
+      run: |
+        ibmcloud plugin list | grep -q '^container-service\b.\+0\.4\.102\b' &&
+        ibmcloud plugin list | grep -q '^secrets-manager\b'
+
+  test-login:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up ibmcloud CLI
+      uses: ./
+      with:
+        api_key: ${{ secrets.IBMCLOUD_API_KEY }}
+    - name: Check logged in
+      run: |
+        ibmcloud target | grep -q 'User:\s\+${{ secrets.IBMCLOUD_USER }}' &&
+        ibmcloud target | grep -q '^Region:\s\+us-south$' &&
+        ibmcloud target | grep -q '^Resource group:\s\+default$'
+
+  test-login-with-region-and-group:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up ibmcloud CLI
+      uses: ./
+      with:
+        api_key: ${{ secrets.IBMCLOUD_API_KEY }}
+        region: us-east
+        group: manageiq
+    - name: Check logged in
+      run: |
+        ibmcloud target | grep -q '^User:\s\+${{ secrets.IBMCLOUD_USER }}$' &&
+        ibmcloud target | grep -q '^Region:\s\+us-east$' &&
+        ibmcloud target | grep -q '^Resource group:\s\+manageiq$'
+
+  test-login-failure:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up ibmcloud CLI
+      id: ibmcloud
+      uses: ./
+      with:
+        api_key: invalid-xxx
+      continue-on-error: true
+    - name: Check failed login
+      run: '[[ ${{ steps.ibmcloud.outcome }} == failure ]]'
+
+  test-login-manual:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up ibmcloud CLI
+      uses: ./
+    - name: Manually log in
+      env:
+        IBMCLOUD_API_KEY: ${{ secrets.IBMCLOUD_API_KEY }}
+      run: ibmcloud login -r us-south -g default >/dev/null
+    - name: Check logged in
+      run: |
+        ibmcloud target | grep -q 'User:\s\+${{ secrets.IBMCLOUD_USER }}' &&
+        ibmcloud target | grep -q '^Region:\s\+us-south$' &&
+        ibmcloud target | grep -q '^Resource group:\s\+default$'
+
+  test-multiple-platforms:
+    strategy:
+      matrix:
+        os:
+        - ubuntu-latest
+        - ubuntu-24.04
+        - ubuntu-22.04
+        - ubuntu-20.04
+        - macos-latest
+        - macos-14
+        - macos-13
+        - macos-12
+        - windows-latest
+        - windows-2022
+        - windows-2019
+      fail-fast: false
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up ibmcloud CLI
+        uses: ./
+        with:
+          api_key: ${{ secrets.IBMCLOUD_API_KEY }}
+          plugins: container-service
+      - name: Check logged in
+        run: |
+          ibmcloud target | grep -q 'User:\s\+${{ secrets.IBMCLOUD_USER }}' &&
+          ibmcloud target | grep -q '^Region:\s\+us-south$' &&
+          ibmcloud target | grep -q '^Resource group:\s\+default$'
+
+  check-dist:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: npm
+    - run: npm ci
+    - run: npm run package
+    - name: Check dist directory is up to date
+      run: git diff --exit-code

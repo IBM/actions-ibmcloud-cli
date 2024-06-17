@@ -1,47 +1,89 @@
-# NOTE: THIS IS PRE RELEASE. DO NOT USE unless you know what you are doing.
-
 # IBM Cloud CLI action
 
 This action installs the IBM Cloud CLI and authenticates with IBM Cloud so you can run commands against it.
 
-## Inputs
+## Usage
 
-### `APIKEY`
-
-**Required** Your API key to talk to the IBM Cloud
-
-### `CLOUD_REGION`
-
-**Required** The region you would like to interface with the IBM Cloud Default: `us-south`
-
-## Example usage
+### Example
 
 ```yaml
-- name: Instal IBM Cloud CLI
-  uses: IBM/actions-ibmcloud-cli@0.0.8
-  with:
-    APIKEY: ${{ secrets.IBM_CLOUD_API_KEY }}
-    CLOUD_REGION: us-south
+name: My workflow
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up ibmcloud CLI
+      uses: IBM/actions-ibmcloud-cli@v0.1.0
+      with:
+        api_key: ${{ secrets.IBMCLOUD_API_KEY }}
+        region: us-south
+        group: default
+        plugins: container-service, secrets-manager
+    - run: ibmcloud --version
 ```
 
-## License & Authors
+### Inputs
 
-If you would like to see the detailed LICENSE click [here](LICENSE).
+- `plugins`: (optional) A comma, space, or newline separated list of CLI plugins to be installed.
 
-- Author: JJ Asghar <awesome@ibm.com>
+  The plugins can listed as `PLUGIN_NAME` (e.g. `container-service`) or `PLUGIN_NAME@VERSION` (e.g. `container-service@0.4.102`)
 
-```text
-Copyright:: 2020- IBM, Inc
+  For more information about plugins see https://cloud.ibm.com/docs/cli?topic=cli-plug-ins
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+  Examples:
 
-http://www.apache.org/licenses/LICENSE-2.0
+  ```yaml
+  plugins: container-service@0.4.102, secrets-manager
+  ```
+  ```yaml
+  plugins: container-service@0.4.102 secrets-manager
+  ```
+  ```yaml
+  plugins: |
+    container-service@0.4.102
+    secrets-manager
+  ```
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-```
+- `api`: (optional - default: `https://cloud.ibm.com`) API endpoint to IBM Cloud
+
+- `api_key`: (optional) API Key to login to IBM Cloud
+
+  If not provided, no attempt will be made to login in and you will need to login with the IBM Cloud CLI directly in a subsequent step.
+
+- `region`: (optional - default: `us-south`) Region to access on IBM Cloud
+
+- `group`: (optional - default: `default`) Resource group to access on IBM Cloud
+
+### Outputs
+
+- `version`: The version of the IBM Cloud CLI that was installed
+
+  This can be accessed in a subsequent step by accessing the outputs as follows:
+
+  ```yaml
+  steps:
+    - uses: actions/checkout@v4
+    - name: Set up ibmcloud CLI
+      id: ibmcloud
+      uses: IBM/actions-ibmcloud-cli@v0.1.0
+    - run: ibmcloud --version
+           # => ibmcloud version 2.25.1+10e6a2e-2024-05-24T20:17:29+00:00
+    - run: echo The version installed is ${{ steps.ibmcloud.outputs.version }}
+           # => The version installed is 2.25.1
+  ```
+
+### Supported Platforms
+
+The action works on these [GitHub-hosted runners](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources) images. Runner images not listed below are not supported yet.
+
+| OS      | Supported        |
+| ------- | ---------------- |
+| Ubuntu  | `ubuntu-latest`  |
+| macOS   | `macos-latest`   |
+| Windows | `windows-latest` |
+
+## License
+
+The gem is available as open source under the terms of the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).

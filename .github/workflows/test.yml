@@ -27,7 +27,7 @@ jobs:
     - name: Check version output is set correctly
       run: |
         actual_version="$(ibmcloud --version)"
-        expected_version="ibmcloud ${{ steps.ibmcloud.outputs.version }}+"
+        expected_version="ibmcloud ${{ steps.ibmcloud.outputs.version }}"
         echo "Actual version:   $actual_version"
         echo "Expected version: $expected_version*"
         [[ "$actual_version" == "$expected_version"* ]]

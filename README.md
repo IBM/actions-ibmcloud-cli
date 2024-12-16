@@ -72,9 +72,9 @@ jobs:
       id: ibmcloud
       uses: IBM/actions-ibmcloud-cli@v1
     - run: ibmcloud --version
-           # => ibmcloud version 2.25.1+10e6a2e-2024-05-24T20:17:29+00:00
+           # => ibmcloud 2.31.0 (6b1eddc-2024-12-05T17:30:20+00:00)
     - run: echo The version installed is ${{ steps.ibmcloud.outputs.version }}
-           # => The version installed is 2.25.1
+           # => The version installed is 2.31.0
   ```
 
 ### Supported Platforms
@@ -84,7 +84,7 @@ The action works on these [GitHub-hosted runners](https://docs.github.com/en/act
 | OS      | Supported        |
 | ------- | ---------------- |
 | Ubuntu  | `ubuntu-24.04`, `ubuntu-22.04` (`ubuntu-latest`), `ubuntu-20.04` |
-| macOS   | `macos-14` (`macos-latest`), `macos-13`, `macos-12` |
+| macOS   | `macos-15`, `macos-14` (`macos-latest`), `macos-13` |
 | Windows | `windows-2022` (`windows-latest`), `windows-2019` |
 
 ## Contributing

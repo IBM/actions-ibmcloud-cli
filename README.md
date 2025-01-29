@@ -85,7 +85,7 @@ The action works on these [GitHub-hosted runners](https://docs.github.com/en/act
 | ------- | ---------------- |
 | Ubuntu  | `ubuntu-24.04` (`ubuntu-latest`), `ubuntu-22.04`, `ubuntu-20.04` |
 | macOS   | `macos-15`, `macos-14` (`macos-latest`), `macos-13` |
-| Windows | `windows-2022` (`windows-latest`), `windows-2019` |
+| Windows | `windows-2025`, `windows-2022` (`windows-latest`), `windows-2019` |
 
 ## Contributing
 

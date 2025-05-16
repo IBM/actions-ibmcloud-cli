@@ -4,6 +4,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0.4] - 2025-05-16
+### Removed
+* Drop ubuntu-20.04 now that it's removed by GitHub [[#23](https://github.com/IBM/actions-ibmcloud-cli/pull/23)]
+
+### Security
+* Bump undici from 5.28.5 to 5.29.0 for [CVE-2025-47279](https://github.com/advisories/GHSA-cxrh-j4jr-qwg3) [[#24](https://github.com/IBM/actions-ibmcloud-cli/pull/24)]
+
 ## [1.0.3] - 2025-01-29
 ### Added
 * Add windows-2025 runner support [[#16](https://github.com/IBM/actions-ibmcloud-cli/pull/16)]
@@ -33,7 +40,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [1.0.0] - 2024-06-17
 * **BREAKING**: Revamp as a Javascript based GitHub Action [[#2](https://github.com/IBM/actions-ibmcloud-cli/pull/2)], [[#3](https://github.com/IBM/actions-ibmcloud-cli/pull/3)], [[#4](https://github.com/IBM/actions-ibmcloud-cli/pull/4)], [[#5](https://github.com/IBM/actions-ibmcloud-cli/pull/5)], [[#6](https://github.com/IBM/actions-ibmcloud-cli/pull/6)]
 
-[Unreleased]: https://github.com/IBM/actions-ibmcloud-cli/compare/v1.0.3...HEAD
+[Unreleased]: https://github.com/IBM/actions-ibmcloud-cli/compare/v1.0.4...HEAD
+[1.0.4]: https://github.com/IBM/actions-ibmcloud-cli/compare/v1.0.3...v1.0.4
 [1.0.3]: https://github.com/IBM/actions-ibmcloud-cli/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/IBM/actions-ibmcloud-cli/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/IBM/actions-ibmcloud-cli/compare/v1.0.0...v1.0.1

@@ -1,6 +1,6 @@
 {
   "name": "actions-ibmcloud-cli",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Install and configure the IBM Cloud CLI for working with IBM Cloud",
   "author": "IBM Authors",
   "license": "Apache-2.0",

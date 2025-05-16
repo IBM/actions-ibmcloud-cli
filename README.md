@@ -29,6 +29,16 @@ jobs:
 
 ### Inputs
 
+- `api_key`: (optional) API Key to login to IBM Cloud
+
+  If not provided, no attempt will be made to login in and you will need to login with the IBM Cloud CLI directly in a subsequent step.
+
+- `region`: (optional - default: `us-south`) Region to access on IBM Cloud
+
+- `group`: (optional - default: `default`) Resource group to access on IBM Cloud
+
+- `api`: (optional - default: `https://cloud.ibm.com`) API endpoint to IBM Cloud
+
 - `plugins`: (optional) A comma, space, or newline separated list of CLI plugins to be installed.
 
   The plugins can listed as `PLUGIN_NAME` (e.g. `container-service`) or `PLUGIN_NAME@VERSION` (e.g. `container-service@0.4.102`)
@@ -48,16 +58,6 @@ jobs:
     container-service@0.4.102
     secrets-manager
   ```
-
-- `api`: (optional - default: `https://cloud.ibm.com`) API endpoint to IBM Cloud
-
-- `api_key`: (optional) API Key to login to IBM Cloud
-
-  If not provided, no attempt will be made to login in and you will need to login with the IBM Cloud CLI directly in a subsequent step.
-
-- `region`: (optional - default: `us-south`) Region to access on IBM Cloud
-
-- `group`: (optional - default: `default`) Resource group to access on IBM Cloud
 
 ### Outputs
 

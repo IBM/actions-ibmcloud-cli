@@ -215,7 +215,6 @@ jobs:
         - windows-latest
         - windows-2025
         - windows-2022
-        - windows-2019
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:

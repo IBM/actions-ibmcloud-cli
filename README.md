@@ -10,50 +10,43 @@ This action installs the IBM Cloud CLI and authenticates with IBM Cloud so you c
 ### Example
 
 ```yaml
-name: My workflow
-on: [push, pull_request]
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - name: Set up ibmcloud CLI
-      uses: IBM/actions-ibmcloud-cli@v1
-      with:
-        api_key: ${{ secrets.IBMCLOUD_API_KEY }}
-        region: us-south
-        group: default
-        plugins: container-service, secrets-manager
-    - run: ibmcloud --version
+steps:
+- name: Set up ibmcloud CLI
+  uses: IBM/actions-ibmcloud-cli@v1
+  with:
+    api_key: ${{ secrets.IBMCLOUD_API_KEY }}
+    region: us-south
+    group: default
+    plugins: container-service, secrets-manager
+- name: Run an ibmcloud CLI command
+  run: ibmcloud --version
 ```
 
 ### Inputs
 
-- `api_key`: (optional) API Key to login to IBM Cloud
+- `api_key`: (optional) API Key to login to IBM Cloud obtained from your [IAM settings](https://cloud.ibm.com/iam/apikeys).
 
   If not provided, no attempt will be made to login in and you will need to login with the IBM Cloud CLI directly in a subsequent step.
 
-- `region`: (optional - default: `us-south`) Region to access on IBM Cloud
+- `region`: (optional - default: `us-south`) Region to access on IBM Cloud.
 
-- `group`: (optional - default: `default`) Resource group to access on IBM Cloud
+- `group`: (optional - default: `default`) Resource group to access on IBM Cloud.
 
-- `api`: (optional - default: `https://cloud.ibm.com`) API endpoint to IBM Cloud
+- `api`: (optional - default: `https://cloud.ibm.com`) API endpoint to IBM Cloud.
 
 - `plugins`: (optional) A comma, space, or newline separated list of CLI plugins to be installed.
 
-  The plugins can listed as `PLUGIN_NAME` (e.g. `container-service`) or `PLUGIN_NAME@VERSION` (e.g. `container-service@0.4.102`)
+  The plugins can listed by name (e.g. `container-service`) or with a specific version (e.g. `container-service@0.4.102`).
 
-  For more information about plugins see https://cloud.ibm.com/docs/cli?topic=cli-plug-ins
+  For more information about plugins see [Extending IBM Cloud CLI with plug-ins](https://cloud.ibm.com/docs/cli?topic=cli-plug-ins).
 
   Examples:
 
   ```yaml
   plugins: container-service@0.4.102, secrets-manager
-  ```
-  ```yaml
+
   plugins: container-service@0.4.102 secrets-manager
-  ```
-  ```yaml
+
   plugins: |
     container-service@0.4.102
     secrets-manager
@@ -67,14 +60,13 @@ jobs:
 
   ```yaml
   steps:
-    - uses: actions/checkout@v4
-    - name: Set up ibmcloud CLI
-      id: ibmcloud
-      uses: IBM/actions-ibmcloud-cli@v1
-    - run: ibmcloud --version
-           # => ibmcloud 2.31.0 (6b1eddc-2024-12-05T17:30:20+00:00)
-    - run: echo The version installed is ${{ steps.ibmcloud.outputs.version }}
-           # => The version installed is 2.31.0
+  - name: Set up ibmcloud CLI
+    id: ibmcloud
+    uses: IBM/actions-ibmcloud-cli@v1
+  - run: ibmcloud --version
+         # => ibmcloud 2.31.0 (6b1eddc-2024-12-05T17:30:20+00:00)
+  - run: echo The version installed is ${{ steps.ibmcloud.outputs.version }}
+         # => The version installed is 2.31.0
   ```
 
 ### Supported Platforms

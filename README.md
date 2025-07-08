@@ -10,21 +10,16 @@ This action installs the IBM Cloud CLI and authenticates with IBM Cloud so you c
 ### Example
 
 ```yaml
-name: My workflow
-on: [push, pull_request]
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - name: Set up ibmcloud CLI
-      uses: IBM/actions-ibmcloud-cli@v1
-      with:
-        api_key: ${{ secrets.IBMCLOUD_API_KEY }}
-        region: us-south
-        group: default
-        plugins: container-service, secrets-manager
-    - run: ibmcloud --version
+steps:
+- name: Set up ibmcloud CLI
+  uses: IBM/actions-ibmcloud-cli@v1
+  with:
+    api_key: ${{ secrets.IBMCLOUD_API_KEY }}
+    region: us-south
+    group: default
+    plugins: container-service, secrets-manager
+- name: Run an ibmcloud CLI command
+  run: ibmcloud --version
 ```
 
 ### Inputs
@@ -49,11 +44,9 @@ jobs:
 
   ```yaml
   plugins: container-service@0.4.102, secrets-manager
-  ```
-  ```yaml
+
   plugins: container-service@0.4.102 secrets-manager
-  ```
-  ```yaml
+
   plugins: |
     container-service@0.4.102
     secrets-manager
@@ -67,14 +60,13 @@ jobs:
 
   ```yaml
   steps:
-    - uses: actions/checkout@v4
-    - name: Set up ibmcloud CLI
-      id: ibmcloud
-      uses: IBM/actions-ibmcloud-cli@v1
-    - run: ibmcloud --version
-           # => ibmcloud 2.31.0 (6b1eddc-2024-12-05T17:30:20+00:00)
-    - run: echo The version installed is ${{ steps.ibmcloud.outputs.version }}
-           # => The version installed is 2.31.0
+  - name: Set up ibmcloud CLI
+    id: ibmcloud
+    uses: IBM/actions-ibmcloud-cli@v1
+  - run: ibmcloud --version
+         # => ibmcloud 2.31.0 (6b1eddc-2024-12-05T17:30:20+00:00)
+  - run: echo The version installed is ${{ steps.ibmcloud.outputs.version }}
+         # => The version installed is 2.31.0
   ```
 
 ### Supported Platforms

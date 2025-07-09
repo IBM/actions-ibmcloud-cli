@@ -54,7 +54,7 @@ steps:
 
 ### Outputs
 
-- `version`: The version of the IBM Cloud CLI that was installed
+- `version`: The version of the IBM Cloud CLI that was installed.
 
   This can be accessed in a subsequent step by accessing the outputs as follows:
 

@@ -10,7 +10,7 @@ jobs:
     permissions:
       contents: write # for git push
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         fetch-depth: 0
     - run: git push origin HEAD:v1

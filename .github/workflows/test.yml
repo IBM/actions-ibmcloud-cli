@@ -15,7 +15,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Set up ibmcloud CLI
       uses: ./
     - name: Check basic CLI function
@@ -24,7 +24,7 @@ jobs:
   test-version-output:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Set up ibmcloud CLI
       id: ibmcloud
       uses: ./
@@ -39,7 +39,7 @@ jobs:
   test-single-plugin:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Set up ibmcloud CLI
       uses: ./
       with:
@@ -50,7 +50,7 @@ jobs:
   test-single-plugin-with-version:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Set up ibmcloud CLI
       uses: ./
       with:
@@ -61,7 +61,7 @@ jobs:
   test-multiple-plugins-with-commas:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Set up ibmcloud CLI
       uses: ./
       with:
@@ -74,7 +74,7 @@ jobs:
   test-multiple-plugins-with-comma-space:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Set up ibmcloud CLI
       uses: ./
       with:
@@ -87,7 +87,7 @@ jobs:
   test-multiple-plugins-with-newlines:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Set up ibmcloud CLI
       uses: ./
       with:
@@ -102,7 +102,7 @@ jobs:
   test-multiple-plugins-with-spaces:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Set up ibmcloud CLI
       uses: ./
       with:
@@ -115,7 +115,7 @@ jobs:
   test-multiple-plugins-with-versions:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Set up ibmcloud CLI
       uses: ./
       with:
@@ -128,7 +128,7 @@ jobs:
   test-multiple-plugins-with-versions-and-newlines:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Set up ibmcloud CLI
       uses: ./
       with:
@@ -143,7 +143,7 @@ jobs:
   test-login:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Set up ibmcloud CLI
       uses: ./
       with:
@@ -157,7 +157,7 @@ jobs:
   test-login-with-region-and-group:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Set up ibmcloud CLI
       uses: ./
       with:
@@ -173,7 +173,7 @@ jobs:
   test-login-failure:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Set up ibmcloud CLI
       id: ibmcloud
       uses: ./
@@ -186,7 +186,7 @@ jobs:
   test-login-manual:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Set up ibmcloud CLI
       uses: ./
     - name: Manually log in
@@ -218,7 +218,7 @@ jobs:
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Set up ibmcloud CLI
         uses: ./
         with:
@@ -233,7 +233,7 @@ jobs:
   check-dist:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:

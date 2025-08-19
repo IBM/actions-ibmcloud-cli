@@ -25667,6 +25667,8 @@ async function installCLI() {
     await exec.exec(`powershell -command "(New-Object Net.WebClient).DownloadString('https://clis.cloud.ibm.com/install/powershell') | Out-File -FilePath ibmcloud_install.ps1"`)
     // Add @echo on as the first line
     await exec.exec(`powershell -command "'Set-PSDebug -Trace 2' + [Environment]::NewLine + (Get-Content -Path ibmcloud_install.ps1 -Raw) | Set-Content -Path ibmcloud_install.ps1"`)
+    // Insert the new line at line 60
+    await exec.exec(`powershell -command "$content = Get-Content -Path ibmcloud_install.ps1; $content[59] = $content[59] + [Environment]::NewLine + 'Write-Host $downloadUrl'; $content | Set-Content -Path ibmcloud_install.ps1"`)
     // Print out the script content for debugging
     core.info('Contents of the modified script:')
     await exec.exec(`powershell -command "Get-Content -Path ibmcloud_install.ps1 | ForEach-Object { Write-Output $_ }"`)

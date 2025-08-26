@@ -1,5 +1,6 @@
 name: IBM Cloud CLI
 description: Install and configure the IBM Cloud CLI for working with IBM Cloud
+author: IBM
 branding:
   icon: download-cloud
   color: blue

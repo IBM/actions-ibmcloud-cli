@@ -25663,19 +25663,7 @@ function colorize(string, color) {
 async function installCLI() {
   core.startGroup('Installing IBM Cloud CLI')
   if (process.platform == 'win32') {
-    // Download the script to a local file
-    await exec.exec(`powershell -command "(New-Object Net.WebClient).DownloadString('https://clis.cloud.ibm.com/install/powershell') | Out-File -FilePath ibmcloud_install.ps1"`)
-    // Add @echo on as the first line
-    await exec.exec(`powershell -command "'Set-PSDebug -Trace 2' + [Environment]::NewLine + (Get-Content -Path ibmcloud_install.ps1 -Raw) | Set-Content -Path ibmcloud_install.ps1"`)
-    // Insert the new line at line 60
-    await exec.exec(`powershell -command "$content = Get-Content -Path ibmcloud_install.ps1; $content[59] = $content[59] + [Environment]::NewLine + 'Write-Host $downloadUrl'; $content | Set-Content -Path ibmcloud_install.ps1"`)
-    // Try a new download method
-    await exec.exec(`powershell -command "$content = Get-Content -Path ibmcloud_install.ps1; $content[61] = '(New-Object System.Net.WebClient).DownloadFile($downloadUrl, $DownloadedInstaller)'; $content[62] = ''; $content[63] = ''; $content | Set-Content -Path ibmcloud_install.ps1"`)
-    // Print out the script content for debugging
-    core.info('Contents of the modified script:')
-    await exec.exec(`powershell -command "Get-Content -Path ibmcloud_install.ps1 | ForEach-Object { Write-Output $_ }"`)
-    // Execute the modified script
-    await exec.exec(`powershell -File ibmcloud_install.ps1`)
+    await exec.exec(`powershell -command "iex (New-Object Net.WebClient).DownloadString('https://clis.cloud.ibm.com/install/powershell')"`)
     // Add to PATH for the current step
     process.env.PATH += ';C:\\Program Files\\IBM\\Cloud\\bin'
     // Add to GITHUB_PATH for future steps

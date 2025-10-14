@@ -22,7 +22,7 @@ async function installCLI() {
     // Insert the new line at line 60
     await exec.exec(`powershell -command "$content = Get-Content -Path ibmcloud_install.ps1; $content[59] = $content[59] + [Environment]::NewLine + 'Write-Host $downloadUrl'; $content | Set-Content -Path ibmcloud_install.ps1"`)
     // Try a new download method
-    await exec.exec(`powershell -command "$content = Get-Content -Path ibmcloud_install.ps1; $content[61] = 'Invoke-WebRequest $downloadUrl -OutFile $DownloadedInstaller'; $content[62] = ''; $content[63] = ''; $content | Set-Content -Path ibmcloud_install.ps1"`)
+    await exec.exec(`powershell -command "$content = Get-Content -Path ibmcloud_install.ps1; $content[61] = '(New-Object System.Net.WebClient).DownloadFile($downloadUrl, $DownloadedInstaller)'; $content[62] = ''; $content[63] = ''; $content | Set-Content -Path ibmcloud_install.ps1"`)
     // Print out the script content for debugging
     core.info('Contents of the modified script:')
     await exec.exec(`powershell -command "Get-Content -Path ibmcloud_install.ps1 | ForEach-Object { Write-Output $_ }"`)

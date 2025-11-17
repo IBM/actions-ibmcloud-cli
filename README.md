@@ -75,7 +75,7 @@ The action works on these [GitHub-hosted runners](https://docs.github.com/en/act
 
 | OS      | Supported        |
 | ------- | ---------------- |
-| Ubuntu  | `ubuntu-24.04` (`ubuntu-latest`), `ubuntu-24.04-arm`, `ubuntu-22.04`, `ubuntu-22.04-arm` |
+| Ubuntu  | `ubuntu-24.04` (`ubuntu-latest`), `ubuntu-24.04-arm`, `ubuntu-24.04-ppc64le`, `ubuntu-24.04-s390x`, `ubuntu-22.04`, `ubuntu-22.04-arm` |
 | macOS   | `macos-26`, `macos-15` (`macos-latest`), `macos-14` |
 | Windows | `windows-2025` (`windows-latest`), `windows-2022` |
 

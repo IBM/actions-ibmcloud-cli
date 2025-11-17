@@ -199,6 +199,24 @@ jobs:
         ibmcloud target | grep -q '^Region:\s\+us-south$' &&
         ibmcloud target | grep -q '^Resource group:\s\+default$'
 
+  test-already-installed:
+    strategy:
+      matrix:
+        os:
+        - ubuntu-latest
+        - macos-latest
+        - windows-latest
+      fail-fast: false
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v5
+      - name: Set up ibmcloud CLI
+        uses: ./
+      - name: Set up ibmcloud CLI (again)
+        uses: ./
+      - name: Check basic CLI function
+        run: ibmcloud --version
+
   test-multiple-platforms:
     strategy:
       matrix:

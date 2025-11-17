@@ -217,7 +217,7 @@ jobs:
       - name: Check basic CLI function
         run: ibmcloud --version
 
-  test-multiple-platforms:
+  test-all-platforms:
     strategy:
       matrix:
         os:
@@ -227,9 +227,9 @@ jobs:
         - ubuntu-22.04
         - ubuntu-22.04-arm
         - macos-latest
+        - macos-26
         - macos-15
         - macos-14
-        - macos-13
         - windows-latest
         - windows-2025
         - windows-2022

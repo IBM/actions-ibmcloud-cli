@@ -6,13 +6,18 @@ branding:
   color: blue
 inputs:
   api_key:
-    description: API Key to login to IBM Cloud obtained from your [IAM settings](https://cloud.ibm.com/iam/apikeys).
+    description: |
+      API Key to login to IBM Cloud obtained from your [IAM settings](https://cloud.ibm.com/iam/apikeys).
+
+      If not provided, no attempt will be made to login in and you will need to login with the IBM Cloud CLI directly in a subsequent step.
   region:
     description: Region to access on IBM Cloud.
     default: us-south
   group:
-    description: Resource group to access on IBM Cloud.
-    default: default
+    description: |
+      Resource group to access on IBM Cloud.
+
+      If not provided, the default resource group will be detected and targeted. To skip the detection of the default resource group, set this to `false`.
   api:
     description: API endpoint to IBM Cloud.
     default: https://cloud.ibm.com

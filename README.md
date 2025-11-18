@@ -30,7 +30,9 @@ steps:
 
 - `region`: (optional - default: `us-south`) Region to access on IBM Cloud.
 
-- `group`: (optional - default: `default`) Resource group to access on IBM Cloud.
+- `group`: (optional) Resource group to access on IBM Cloud.
+
+  If not provided, the default resource group will be detected and targeted. To skip the detection of the default resource group, set this to `false`.
 
 - `api`: (optional - default: `https://cloud.ibm.com`) API endpoint to IBM Cloud.
 

@@ -162,6 +162,21 @@ jobs:
         ibmcloud target | grep -q '^Region:\s\+us-south$' &&
         ibmcloud target | grep -q '^Resource group:\s\+default$'
 
+  test-login-with-region:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v5
+    - name: Set up ibmcloud CLI
+      uses: ./
+      with:
+        api_key: ${{ secrets.IBMCLOUD_API_KEY }}
+        region: us-east
+    - name: Check logged in
+      run: |
+        ibmcloud target | grep -q '^User:\s\+${{ secrets.IBMCLOUD_USER }}$' &&
+        ibmcloud target | grep -q '^Region:\s\+us-east$' &&
+        ibmcloud target | grep -q '^Resource group:\s\+default$'
+
   test-login-with-region-and-group:
     runs-on: ubuntu-latest
     steps:
@@ -177,6 +192,38 @@ jobs:
         ibmcloud target | grep -q '^User:\s\+${{ secrets.IBMCLOUD_USER }}$' &&
         ibmcloud target | grep -q '^Region:\s\+us-east$' &&
         ibmcloud target | grep -q '^Resource group:\s\+manageiq$'
+
+  test-login-with-region-and-blank-group:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v5
+    - name: Set up ibmcloud CLI
+      uses: ./
+      with:
+        api_key: ${{ secrets.IBMCLOUD_API_KEY }}
+        region: us-east
+        group: ''
+    - name: Check logged in
+      run: |
+        ibmcloud target | grep -q '^User:\s\+${{ secrets.IBMCLOUD_USER }}$' &&
+        ibmcloud target | grep -q '^Region:\s\+us-east$' &&
+        ibmcloud target | grep -q '^Resource group:\s\+default$'
+
+  test-login-with-region-and-false-group:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v5
+    - name: Set up ibmcloud CLI
+      uses: ./
+      with:
+        api_key: ${{ secrets.IBMCLOUD_API_KEY }}
+        region: us-east
+        group: false
+    - name: Check logged in
+      run: |
+        ibmcloud target | grep -q '^User:\s\+${{ secrets.IBMCLOUD_USER }}$' &&
+        ibmcloud target | grep -q '^Region:\s\+us-east$' &&
+        ibmcloud target | grep -q '^Resource group:\s\+No resource group targeted'
 
   test-login-failure:
     runs-on: ubuntu-latest
@@ -225,7 +272,7 @@ jobs:
       - name: Check basic CLI function
         run: ibmcloud --version
 
-  test-all-platforms:
+  test-os:
     strategy:
       matrix:
         os:

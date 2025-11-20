@@ -4,6 +4,23 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.1.0] - 2025-11-19
+### Added
+* Add support for ubuntu-24.04-ppc64le and ubuntu-24.04-s390x runners [[#50](https://github.com/IBM/actions-ibmcloud-cli/pull/50)]
+* Add support for macos-26 runner [[#49](https://github.com/IBM/actions-ibmcloud-cli/pull/49)]
+
+### Changed
+* Update dependency @vercel/ncc to v0.38.4 [[#39](https://github.com/IBM/actions-ibmcloud-cli/pull/39)]
+* Add detection of the default resource group [[#52](https://github.com/IBM/actions-ibmcloud-cli/pull/52)]
+
+### Fixed
+* Check if ibmcloud already exists before installing [[#47](https://github.com/IBM/actions-ibmcloud-cli/pull/47)]
+* Fix issue with more than 2 plugins listed [[#51](https://github.com/IBM/actions-ibmcloud-cli/pull/51)]
+
+### Removed
+* Drop support for windows-2019 runner as it's no longer supported by GitHub [[#27](https://github.com/IBM/actions-ibmcloud-cli/pull/27)]
+* Drop support for macos-13 runner [[#49](https://github.com/IBM/actions-ibmcloud-cli/pull/49)]
+
 ## [1.0.4] - 2025-05-16
 ### Removed
 * Drop ubuntu-20.04 now that it's removed by GitHub [[#23](https://github.com/IBM/actions-ibmcloud-cli/pull/23)]
@@ -40,7 +57,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [1.0.0] - 2024-06-17
 * **BREAKING**: Revamp as a Javascript based GitHub Action [[#2](https://github.com/IBM/actions-ibmcloud-cli/pull/2)], [[#3](https://github.com/IBM/actions-ibmcloud-cli/pull/3)], [[#4](https://github.com/IBM/actions-ibmcloud-cli/pull/4)], [[#5](https://github.com/IBM/actions-ibmcloud-cli/pull/5)], [[#6](https://github.com/IBM/actions-ibmcloud-cli/pull/6)]
 
-[Unreleased]: https://github.com/IBM/actions-ibmcloud-cli/compare/v1.0.4...HEAD
+[Unreleased]: https://github.com/IBM/actions-ibmcloud-cli/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/IBM/actions-ibmcloud-cli/compare/v1.0.4...v1.1.0
 [1.0.4]: https://github.com/IBM/actions-ibmcloud-cli/compare/v1.0.3...v1.0.4
 [1.0.3]: https://github.com/IBM/actions-ibmcloud-cli/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/IBM/actions-ibmcloud-cli/compare/v1.0.1...v1.0.2

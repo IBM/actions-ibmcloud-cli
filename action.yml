@@ -32,5 +32,5 @@ outputs:
   version:
     description: The version of the IBM Cloud CLI that was installed.
 runs:
-  using: node24
+  using: node20
   main: dist/index.js

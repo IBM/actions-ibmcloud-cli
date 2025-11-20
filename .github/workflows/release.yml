@@ -1,4 +1,4 @@
-name: Update the v1 branch when a release is published
+name: Update major version branch on release
 on:
   release:
     types: [published]
@@ -13,4 +13,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         fetch-depth: 0
-    - run: git push origin HEAD:v1
+    - name: Update major version branch
+      run: |
+        tag=${{ github.event.release.tag_name }}
+        branch=${tag%%.*}
+        git push origin HEAD:$branch

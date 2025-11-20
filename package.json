@@ -21,7 +21,7 @@
     ".": "./dist/index.js"
   },
   "scripts": {
-    "package": "ncc build src/index.js -o dist --source-map --license licenses.txt"
+    "package": "ncc build src/index.js -o dist --source-map --license licenses.txt --minify --no-source-map-register"
   },
   "dependencies": {
     "@actions/core": "^1.11.1",

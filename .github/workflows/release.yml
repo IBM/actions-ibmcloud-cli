@@ -14,7 +14,8 @@ jobs:
       with:
         fetch-depth: 0
     - name: Update major version branch
+      env:
+        RELEASE_TAG: ${{ github.event.release.tag_name }}
       run: |
-        tag=${{ github.event.release.tag_name }}
-        branch=${tag%%.*}
+        branch=${RELEASE_TAG%%.*}
         git push origin HEAD:$branch

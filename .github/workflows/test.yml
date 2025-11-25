@@ -29,9 +29,11 @@ jobs:
       id: ibmcloud
       uses: ./
     - name: Check version output is set correctly
+      env:
+        IBMCLOUD_CLI_VERSION: ${{ steps.ibmcloud.outputs.version }}
       run: |
         actual_version="$(ibmcloud --version)"
-        expected_version="ibmcloud ${{ steps.ibmcloud.outputs.version }}"
+        expected_version="ibmcloud $IBMCLOUD_CLI_VERSION ("
         echo "Actual version:   $actual_version"
         echo "Expected version: $expected_version*"
         [[ "$actual_version" == "$expected_version"* ]]
@@ -313,7 +315,7 @@ jobs:
       uses: actions/setup-node@v6
       with:
         node-version: 24
-        cache: npm
+        package-manager-cache: false
     - run: npm ci
     - run: npm run package
     - name: Check dist directory is up to date

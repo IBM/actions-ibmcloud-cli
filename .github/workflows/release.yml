@@ -8,6 +8,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     permissions:
+      actions: write # for releases that contain changes to the workflows
       contents: write # for git push
     steps:
     - uses: actions/checkout@v6

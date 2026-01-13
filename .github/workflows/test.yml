@@ -151,6 +151,40 @@ jobs:
         ibmcloud plugin list | grep -q '^secrets-manager\b' &&
         ibmcloud plugin list | grep -q '^container-registry\b.\+1\.3\.\b'
 
+  test-plugins-already-installed:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Set up ibmcloud CLI
+        uses: ./
+        with:
+          plugins: container-service
+      - name: Set up ibmcloud CLI (again)
+        uses: ./
+        with:
+          plugins: container-service secrets-manager
+      - name: Check plugins are installed
+        run: |
+          ibmcloud plugin list | grep -q '^container-service\b' &&
+          ibmcloud plugin list | grep -q '^secrets-manager\b'
+
+  test-plugins-already-installed-with-older-versions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Set up ibmcloud CLI
+        uses: ./
+        with:
+          plugins: container-service@0.4.102
+      - name: Set up ibmcloud CLI (again)
+        uses: ./
+        with:
+          plugins: container-service secrets-manager
+      - name: Check plugins are installed
+        run: |
+          ibmcloud plugin list | grep -q '^container-service\b' &&
+          ibmcloud plugin list | grep -q '^secrets-manager\b'
+
   test-login:
     runs-on: ubuntu-latest
     steps:

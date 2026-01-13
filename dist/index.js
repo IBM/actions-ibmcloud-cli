@@ -25715,7 +25715,7 @@ async function installPlugins() {
   const plugins = core.getInput('plugins').replace(/\n/g, ' ').replace(/,/g, ' ').split(' ').map(p => p.trim()).filter(p => p)
   if (plugins.length > 0) {
     core.startGroup('Installing IBM Cloud CLI plugins')
-    await exec.exec('ibmcloud', ['plugin', 'install', ...plugins])
+    await exec.exec('ibmcloud', ['plugin', 'install', ...plugins, '-f'])
     core.endGroup()
     await exec.exec('ibmcloud', ['plugin', 'list'])
   }

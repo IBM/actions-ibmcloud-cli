@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-01-13
+### Fixed
+- Add force flag to plugin install to handle when a plugin is already installed [[#62](https://github.com/IBM/actions-ibmcloud-cli/pull/62)]
+
 ## [1.1.0] - 2025-11-19
 ### Added
 * Add support for ubuntu-24.04-ppc64le and ubuntu-24.04-s390x runners [[#50](https://github.com/IBM/actions-ibmcloud-cli/pull/50)]
@@ -57,7 +61,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [1.0.0] - 2024-06-17
 * **BREAKING**: Revamp as a Javascript based GitHub Action [[#2](https://github.com/IBM/actions-ibmcloud-cli/pull/2)], [[#3](https://github.com/IBM/actions-ibmcloud-cli/pull/3)], [[#4](https://github.com/IBM/actions-ibmcloud-cli/pull/4)], [[#5](https://github.com/IBM/actions-ibmcloud-cli/pull/5)], [[#6](https://github.com/IBM/actions-ibmcloud-cli/pull/6)]
 
-[Unreleased]: https://github.com/IBM/actions-ibmcloud-cli/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/IBM/actions-ibmcloud-cli/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/IBM/actions-ibmcloud-cli/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/IBM/actions-ibmcloud-cli/compare/v1.0.4...v1.1.0
 [1.0.4]: https://github.com/IBM/actions-ibmcloud-cli/compare/v1.0.3...v1.0.4
 [1.0.3]: https://github.com/IBM/actions-ibmcloud-cli/compare/v1.0.2...v1.0.3

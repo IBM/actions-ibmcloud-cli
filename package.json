@@ -24,7 +24,7 @@
     "package": "ncc build src/index.js -o dist --source-map --license licenses.txt --minify --no-source-map-register"
   },
   "dependencies": {
-    "@actions/core": "^2.0.2",
+    "@actions/core": "^3.0.0",
     "@actions/exec": "^2.0.0",
     "@actions/io": "^2.0.0"
   },

@@ -1,6 +1,6 @@
-const core = require('@actions/core')
-const exec = require('@actions/exec')
-const io = require('@actions/io')
+import * as core from '@actions/core'
+import * as exec from '@actions/exec'
+import * as io from '@actions/io'
 
 /**
  * Colorize a string with ANSI codes.
@@ -9,7 +9,7 @@ const io = require('@actions/io')
  * @returns {string} The colorized string
  */
 function colorize(string, color) {
-  code = {red: 31, green: 32, cyan: 36}[color] || 0
+  const code = {red: 31, green: 32, cyan: 36}[color] || 0
   return `\u001b[${code};1m${string}\u001b[0m`
 }
 
@@ -214,6 +214,4 @@ async function run() {
   }
 }
 
-module.exports = {
-  run
-}
+export { run }

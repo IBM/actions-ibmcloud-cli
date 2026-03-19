@@ -81,6 +81,10 @@ The action works on these [GitHub-hosted runners](https://docs.github.com/en/act
 | macOS   | `macos-26`, `macos-15` (`macos-latest`), `macos-14` |
 | Windows | `windows-2025` (`windows-latest`), `windows-2022` |
 
+## Versioning
+
+The v2 major version updates the GitHub Actions required runtime to Node.js 24. GitHub-hosted runners already include this, but self-hosted runners may need to be updated ahead of planned deprecations of Node 20 on GitHub Actions runners.
+
 ## Contributing
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md).

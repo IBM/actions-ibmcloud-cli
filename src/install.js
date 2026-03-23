@@ -3,14 +3,7 @@ import * as exec from '@actions/exec'
 import * as io from '@actions/io'
 import { installLinux } from './install-linux.js'
 import { installMacOS } from './install-macos.js'
-
-async function installWindows() {
-  await exec.exec(`powershell -command "iex (New-Object Net.WebClient).DownloadString('https://clis.cloud.ibm.com/install/powershell')"`)
-  // Add to PATH for the current step
-  process.env.PATH += ';C:\\Program Files\\IBM\\Cloud\\bin'
-  // Add to GITHUB_PATH for future steps
-  await exec.exec(`powershell -command "Add-Content $env:GITHUB_PATH 'C:\\Program Files\\IBM\\Cloud\\bin'"`)
-}
+import { installWindows } from './install-windows.js'
 
 async function install() {
   core.startGroup('Installing IBM Cloud CLI')

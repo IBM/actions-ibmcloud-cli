@@ -50,7 +50,10 @@ async function installMacOS() {
   core.info('Checksum verified successfully')
 
   core.info('Running installer...')
-  await exec.exec('sudo', ['installer', '-pkg', pkgPath, '-target', '/'])
+  const exitCode = await exec.exec('sudo', ['installer', '-pkg', pkgPath, '-target', '/'])
+  if (exitCode !== 0) {
+    throw new Error(`Installation failed (exit code: ${exitCode})`)
+  }
 
   core.info('Cleaning up temporary files...')
   fs.unlinkSync(pkgPath)

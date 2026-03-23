@@ -50,7 +50,10 @@ async function installWindows() {
   core.info('Checksum verified successfully')
 
   core.info('Running installer...')
-  await exec.exec('powershell', ['-command', `& "${installerPath}" /s /v"REBOOT=ReallySuppress /qn"`])
+  let exitCode = await exec.exec('powershell', ['-command', `& "${installerPath}" /s /v"REBOOT=ReallySuppress /qn"`])
+  if (exitCode !== 0) {
+    throw new Error(`Installation failed (exit code: ${exitCode})`)
+  }
 
   core.info('Cleaning up temporary files...')
   fs.unlinkSync(installerPath)
@@ -58,7 +61,10 @@ async function installWindows() {
   // Add to PATH for the current step
   process.env.PATH += ';C:\\Program Files\\IBM\\Cloud\\bin'
   // Add to GITHUB_PATH for future steps
-  await exec.exec('powershell', ['-command', `Add-Content $env:GITHUB_PATH 'C:\\Program Files\\IBM\\Cloud\\bin'`])
+  exitCode = await exec.exec('powershell', ['-command', `Add-Content $env:GITHUB_PATH 'C:\\Program Files\\IBM\\Cloud\\bin'`])
+  if (exitCode !== 0) {
+    core.warning(`Failed to add IBM Cloud CLI to GITHUB_PATH (exit code: ${exitCode})`)
+  }
 
   core.info('IBM Cloud CLI installed successfully')
 }

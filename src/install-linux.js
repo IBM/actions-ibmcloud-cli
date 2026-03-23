@@ -53,17 +53,30 @@ async function installLinux() {
   core.info('Checksum verified successfully')
 
   core.info('Extracting installer...')
-  await exec.exec('tar', ['-xzvf', tarballPath, '-C', tmpDir])
+  let exitCode = await exec.exec('tar', ['-xzvf', tarballPath, '-C', tmpDir])
+  if (exitCode !== 0) {
+    throw new Error(`Failed to extract installer (exit code: ${exitCode})`)
+  }
 
   const extractDir = join(tmpDir, 'Bluemix_CLI')
   core.info('Running installer...')
   const installScript = join(extractDir, 'install')
-  await exec.exec('chmod', ['755', installScript])
-  await exec.exec(installScript, ['-q'])
+  exitCode = await exec.exec('chmod', ['755', installScript])
+  if (exitCode !== 0) {
+    throw new Error(`Failed to set permissions on install script (exit code: ${exitCode})`)
+  }
+
+  exitCode = await exec.exec(installScript, ['-q'])
+  if (exitCode !== 0) {
+    throw new Error(`Installation failed (exit code: ${exitCode})`)
+  }
 
   core.info('Cleaning up temporary files...')
   fs.unlinkSync(tarballPath)
-  await exec.exec('rm', ['-rf', extractDir])
+  exitCode = await exec.exec('rm', ['-rf', extractDir])
+  if (exitCode !== 0) {
+    core.warning(`Failed to clean up temporary directory (exit code: ${exitCode})`)
+  }
 
   core.info('IBM Cloud CLI installed successfully')
 }

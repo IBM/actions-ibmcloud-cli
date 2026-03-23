@@ -1,7 +1,7 @@
 import * as core from '@actions/core'
 import * as exec from '@actions/exec'
 import * as io from '@actions/io'
-import { installCLI, captureVersion, installPlugins } from './install.js'
+import { install, captureVersion, installPlugins } from './install.js'
 
 /**
  * Colorize a string with ANSI codes.
@@ -163,7 +163,7 @@ async function login() {
  */
 async function run() {
   try {
-    await installCLI()
+    await install()
     await captureVersion()
     await disableVersionChecking()
     await installPlugins()

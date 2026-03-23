@@ -2,22 +2,34 @@ import * as core from '@actions/core'
 import * as exec from '@actions/exec'
 import * as io from '@actions/io'
 
-async function installCLI() {
+async function installWindows() {
+  await exec.exec(`powershell -command "iex (New-Object Net.WebClient).DownloadString('https://clis.cloud.ibm.com/install/powershell')"`)
+  // Add to PATH for the current step
+  process.env.PATH += ';C:\\Program Files\\IBM\\Cloud\\bin'
+  // Add to GITHUB_PATH for future steps
+  await exec.exec(`powershell -command "Add-Content $env:GITHUB_PATH 'C:\\Program Files\\IBM\\Cloud\\bin'"`)
+}
+
+async function installMacOS() {
+  await exec.exec('/bin/bash -c "curl -fsSL https://clis.cloud.ibm.com/install/osx | sh"')
+}
+
+async function installLinux() {
+  await exec.exec('/bin/bash -c "curl -fsSL https://clis.cloud.ibm.com/install/linux | sh"')
+}
+
+async function install() {
   core.startGroup('Installing IBM Cloud CLI')
   const cliPath = await io.which("ibmcloud")
   if (cliPath) {
     core.info("IBM Cloud CLI is already installed.")
   } else {
     if (process.platform == 'win32') {
-      await exec.exec(`powershell -command "iex (New-Object Net.WebClient).DownloadString('https://clis.cloud.ibm.com/install/powershell')"`)
-      // Add to PATH for the current step
-      process.env.PATH += ';C:\\Program Files\\IBM\\Cloud\\bin'
-      // Add to GITHUB_PATH for future steps
-      await exec.exec(`powershell -command "Add-Content $env:GITHUB_PATH 'C:\\Program Files\\IBM\\Cloud\\bin'"`)
+      await installWindows()
     } else if (process.platform == 'darwin') {
-      await exec.exec('/bin/bash -c "curl -fsSL https://clis.cloud.ibm.com/install/osx | sh"')
+      await installMacOS()
     } else {
-      await exec.exec('/bin/bash -c "curl -fsSL https://clis.cloud.ibm.com/install/linux | sh"')
+      await installLinux()
     }
   }
   core.endGroup()
@@ -42,4 +54,4 @@ async function installPlugins() {
   }
 }
 
-export { installCLI, captureVersion, installPlugins }
+export { install, captureVersion, installPlugins }

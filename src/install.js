@@ -1,6 +1,7 @@
 import * as core from '@actions/core'
 import * as exec from '@actions/exec'
 import * as io from '@actions/io'
+import { installLinux } from './install-linux.js'
 
 async function installWindows() {
   await exec.exec(`powershell -command "iex (New-Object Net.WebClient).DownloadString('https://clis.cloud.ibm.com/install/powershell')"`)
@@ -12,10 +13,6 @@ async function installWindows() {
 
 async function installMacOS() {
   await exec.exec('/bin/bash -c "curl -fsSL https://clis.cloud.ibm.com/install/osx | sh"')
-}
-
-async function installLinux() {
-  await exec.exec('/bin/bash -c "curl -fsSL https://clis.cloud.ibm.com/install/linux | sh"')
 }
 
 async function install() {

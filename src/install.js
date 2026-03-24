@@ -1,9 +1,9 @@
 import * as core from '@actions/core'
 import * as exec from '@actions/exec'
 import * as io from '@actions/io'
-import { installLinux } from './install-linux.js'
-import { installMacOS } from './install-macos.js'
-import { installWindows } from './install-windows.js'
+import { LinuxInstaller } from './installer/linux.js'
+import { MacOSInstaller } from './installer/macos.js'
+import { WindowsInstaller } from './installer/windows.js'
 
 async function install() {
   core.startGroup('Installing IBM Cloud CLI')
@@ -11,13 +11,15 @@ async function install() {
   if (cliPath) {
     core.info("IBM Cloud CLI is already installed.")
   } else {
+    let installer
     if (process.platform == 'win32') {
-      await installWindows()
+      installer = new WindowsInstaller()
     } else if (process.platform == 'darwin') {
-      await installMacOS()
+      installer = new MacOSInstaller()
     } else {
-      await installLinux()
+      installer = new LinuxInstaller()
     }
+    await installer.install()
   }
   core.endGroup()
 }

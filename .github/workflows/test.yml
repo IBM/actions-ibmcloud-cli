@@ -358,3 +358,14 @@ jobs:
     - run: npm run package
     - name: Check dist directory is up to date
       run: git diff --exit-code
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6
+    - name: Set up Node.js
+      uses: actions/setup-node@v6
+      with:
+        node-version: 24
+        package-manager-cache: false
+    - run: npm audit

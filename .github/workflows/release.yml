@@ -11,7 +11,7 @@ jobs:
       actions: write # for releases that contain changes to the workflows
       contents: write # for git push
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         fetch-depth: 0
     - name: Update major version branch

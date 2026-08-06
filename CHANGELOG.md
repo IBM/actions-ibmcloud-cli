@@ -4,6 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.1.1] - 2026-08-06
+### Security
+* Bump undici to 6.28.0 for numerous CVEs [[#85](https://github.com/IBM/actions-ibmcloud-cli/pull/85), [#88](https://github.com/IBM/actions-ibmcloud-cli/pull/88)]
+
 ## [2.1.0] - 2026-03-23
 ### Changed
 * Switch from `curl | sh` install style to a direct download [[#76](https://github.com/IBM/actions-ibmcloud-cli/pull/76)]
@@ -74,7 +78,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [1.0.0] - 2024-06-17
 * **BREAKING**: Revamp as a Javascript based GitHub Action [[#2](https://github.com/IBM/actions-ibmcloud-cli/pull/2)], [[#3](https://github.com/IBM/actions-ibmcloud-cli/pull/3)], [[#4](https://github.com/IBM/actions-ibmcloud-cli/pull/4)], [[#5](https://github.com/IBM/actions-ibmcloud-cli/pull/5)], [[#6](https://github.com/IBM/actions-ibmcloud-cli/pull/6)]
 
-[Unreleased]: https://github.com/IBM/actions-ibmcloud-cli/compare/v2.1.0...HEAD
+[Unreleased]: https://github.com/IBM/actions-ibmcloud-cli/compare/v2.1.1...HEAD
+[2.1.1]: https://github.com/IBM/actions-ibmcloud-cli/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/IBM/actions-ibmcloud-cli/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/IBM/actions-ibmcloud-cli/compare/v1.1.1...v2.0.0
 [1.1.1]: https://github.com/IBM/actions-ibmcloud-cli/compare/v1.1.0...v1.1.1

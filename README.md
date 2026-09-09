@@ -73,11 +73,11 @@ steps:
 
 ### Supported Platforms
 
-The action works on these [GitHub-hosted runners](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources) images. Runner images not listed below are not supported yet.
+The action works on these [GitHub-hosted runners](https://github.com/actions/runner-images) images. Runner images not listed below are not supported yet.
 
 | OS      | Supported        |
 | ------- | ---------------- |
-| Ubuntu  | `ubuntu-24.04` (`ubuntu-latest`), `ubuntu-24.04-arm`, `ubuntu-24.04-ppc64le`, `ubuntu-24.04-s390x`, `ubuntu-22.04`, `ubuntu-22.04-arm` |
+| Ubuntu  | `ubuntu-26.04`, `ubuntu-26.04-arm`, `ubuntu-24.04` (`ubuntu-latest`), `ubuntu-24.04-arm`, `ubuntu-24.04-ppc64le`, `ubuntu-24.04-s390x`, `ubuntu-22.04`, `ubuntu-22.04-arm`, `ubuntu-slim` |
 | macOS   | `macos-26`, `macos-15` (`macos-latest`), `macos-14` |
 | Windows | `windows-2025` (`windows-latest`), `windows-2022` |
 

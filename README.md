@@ -12,7 +12,7 @@ This action installs the IBM Cloud CLI and authenticates with IBM Cloud so you c
 ```yaml
 steps:
 - name: Set up ibmcloud CLI
-  uses: IBM/actions-ibmcloud-cli@v1
+  uses: IBM/actions-ibmcloud-cli@v2
   with:
     api_key: ${{ secrets.IBMCLOUD_API_KEY }}
     region: us-south
@@ -64,7 +64,7 @@ steps:
   steps:
   - name: Set up ibmcloud CLI
     id: ibmcloud
-    uses: IBM/actions-ibmcloud-cli@v1
+    uses: IBM/actions-ibmcloud-cli@v2
   - run: ibmcloud --version
          # => ibmcloud 2.31.0 (6b1eddc-2024-12-05T17:30:20+00:00)
   - run: echo The version installed is ${{ steps.ibmcloud.outputs.version }}

@@ -329,7 +329,6 @@ jobs:
         - macos-latest
         - macos-26
         - macos-15
-        - macos-14
         - windows-latest
         - windows-2025
         - windows-2022

@@ -4,6 +4,16 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.2.1] - 2026-10-28
+### Changed
+* Move `ubuntu-latest` alias to `ubuntu-26.04` [[#95](https://github.com/IBM/actions-ibmcloud-cli/pull/95)]
+
+### Removed
+* Drop macos-14 support [[#95](https://github.com/IBM/actions-ibmcloud-cli/pull/95)]
+
+### Security
+* Bump undici for CVE GHSA-4qv8-2p9j-2685 and GHSA-xjj6-f33q-929c [[#97](https://github.com/IBM/actions-ibmcloud-cli/pull/97)]
+
 ## [2.2.0] - 2026-09-30
 ### Added
 * Add support for `ubuntu-26.04`, `ubuntu-26.04-arm`, and `ubuntu-slim` runners [[#91](https://github.com/IBM/actions-ibmcloud-cli/pull/91)]
@@ -85,7 +95,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [1.0.0] - 2024-06-17
 * **BREAKING**: Revamp as a Javascript based GitHub Action [[#2](https://github.com/IBM/actions-ibmcloud-cli/pull/2)], [[#3](https://github.com/IBM/actions-ibmcloud-cli/pull/3)], [[#4](https://github.com/IBM/actions-ibmcloud-cli/pull/4)], [[#5](https://github.com/IBM/actions-ibmcloud-cli/pull/5)], [[#6](https://github.com/IBM/actions-ibmcloud-cli/pull/6)]
 
-[Unreleased]: https://github.com/IBM/actions-ibmcloud-cli/compare/v2.2.0...HEAD
+[Unreleased]: https://github.com/IBM/actions-ibmcloud-cli/compare/v2.2.1...HEAD
+[2.2.1]: https://github.com/IBM/actions-ibmcloud-cli/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/IBM/actions-ibmcloud-cli/compare/v2.1.1...v2.2.0
 [2.1.1]: https://github.com/IBM/actions-ibmcloud-cli/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/IBM/actions-ibmcloud-cli/compare/v2.0.0...v2.1.0

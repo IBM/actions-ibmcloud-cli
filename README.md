@@ -77,7 +77,7 @@ The action works on these [GitHub-hosted runners](https://github.com/actions/run
 
 | OS      | Supported        |
 | ------- | ---------------- |
-| Ubuntu  | `ubuntu-26.04`<br>`ubuntu-26.04-arm`<br>`ubuntu-24.04` (`ubuntu-latest`)<br>`ubuntu-24.04-arm`<br>`ubuntu-24.04-ppc64le`<br>`ubuntu-24.04-s390x`<br>`ubuntu-22.04`<br>`ubuntu-22.04-arm`<br>`ubuntu-slim` |
+| Ubuntu  | `ubuntu-26.04` (`ubuntu-latest`)<br>`ubuntu-26.04-arm`<br>`ubuntu-24.04`<br>`ubuntu-24.04-arm`<br>`ubuntu-24.04-ppc64le`<br>`ubuntu-24.04-s390x`<br>`ubuntu-22.04`<br>`ubuntu-22.04-arm`<br>`ubuntu-slim` |
 | macOS   | `macos-26`<br>`macos-15` (`macos-latest`) |
 | Windows | `windows-2025` (`windows-latest`)<br>`windows-2022` |
 
